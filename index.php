@@ -26,10 +26,14 @@
        <input type="submit" name="load_data" value="Load Data" />
  </form>
  <?php
-    $host = "<Nama server database Anda>";
-    $user = "<Nama admin database Anda>";
-    $pass = "<Password admin database Anda>";
-    $db = "<Nama database Anda>";
+    require __DIR__.'vendor/autoload.php';
+    use Symfony\Component\Dotenv\Dotenv;
+    $dotenv = new Dotenv();
+    $dotenv->load(__DIR__.'/.env');
+    $host = $_ENV['DB_HOST'];
+    $user = $_ENV['DB_USER'];
+    $pass = $_ENV['DB_PASS'];
+    $db = $_ENV['DB_NAME'];
 
     try {
         $conn = new PDO("sqlsrv:server = $host; Database = $db", $user, $pass);
